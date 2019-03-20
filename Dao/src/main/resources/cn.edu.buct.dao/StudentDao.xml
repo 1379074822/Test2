@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.buct.dao.StudentDao">
+    <resultMap id="building" type="Building">
+        <id property="bsn" column="bsn" javaType="Integer"/>
+        <result property="sid" column="s_id" javaType="String"/>
+        <association property="department" column="department_sn" javaType="Department" >
+            <id property="sn" column="dsn" javaType="String"/>
+            <result property="name" column="dname" javaType="String"/>
+        </association>
+    </resultMap>
+
+    <insert id="insert" parameterType="Building">
+        insert into `building` values(#{bsn},#{bname},#{minfloor},#{maxfloor},#{cpsn})
+    </insert>
+
+    <update id="update" parameterType="Building">
+        update `building`
+        <trim prefix="set" prefixOverrides=",">
+            <if test="bname!=null">
+                ,bname=#{bname}
+            </if>
+            <if test="minfloor!=null">
+                ,minfloor=#{minfloor}
+            </if>
+            <if test="maxfloor!=null">
+                ,maxfloor=#{maxfloor}
+            </if>
+            <if test="cpsn!=null">
+                ,cpsn=#{cpsn}
+            </if>
+        </trim>
+        where bsn=#{bsn}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from `building` where bsn=#{bsn}
+    </delete>
+
+    <select id="select" parameterType="Integer" resultMap="building">
+        select * from `building` where bsn=#{bsn}
+    </select>
+
+    <select id="selectAll" resultMap="building">
+        select * from `building`
+    </select>
+
+    <select id="selectAllByCampus" parameterType="Integer" resultMap="building">
+        select * from `building` where cpsn=#{cpsn}
+    </select>
+
+</mapper>

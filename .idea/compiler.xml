@@ -8,10 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Controller" />
         <module name="Dao" />
+        <module name="Service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Service" target="1.5" />
+      <module name="Service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
